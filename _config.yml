@@ -7,7 +7,7 @@ highlighter: pygments
 title:       Some
 email:
 author:      Dmitry Maslov
-description: "Some"
+description: "Dev notes"
 baseurl:     ""
 url:         "http://dmaslov.github.io"
 
