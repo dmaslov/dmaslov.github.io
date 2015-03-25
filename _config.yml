@@ -4,10 +4,10 @@ encoding: utf-8
 highlighter: pygments
 
 # Site settings
-title:       Some
+title:       Dev notes
 email:
 author:      Dmitry Maslov
-description: "Dev notes"
+description: "Some"
 baseurl:     ""
 url:         "http://dmaslov.github.io"
 
