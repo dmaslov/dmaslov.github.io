@@ -54,24 +54,22 @@ gulpfile.js будет просто собирать js файлы в один, 
 Из интересного тут только ```oauth-shim```, остальное нужно чтобы просто работало приложение
 
 Подключаем
-{% highlight JavaScript %}
+{% highlight javascript linenos %}
 oauthshim = require('oauth-shim')
 {% endhighlight %}
 
 Инициализируем (тут мы вписываем clientId и clientSecret из настроек нашего твиттер приложения)
 
-{% highlight JavaScript %}
+{% highlight javascript linenos %}
 oauthshim.init({
-
   'clientID' : 'clientSecret'
-
 });
 {% endhighlight %}
 
 
 Вызываем (Все запросы от клиента к прокси будут вызывать oauthshim)
 
-{% highlight JavaScript %}
+{% highlight javascript linenos %}
 app
 .get('/proxy', oauthshim.request)
 {% endhighlight %}
@@ -143,7 +141,7 @@ npm start
 
 Пользователь кликает по кнопке, срабатывает метод ```authCtrl.login('twitter')```, который вызывает функцию ```login``` фабрики, отвечающую за аутентификацию и передает в нее имя провайдера (в нашем случае это twitter)
 
-{% highlight javascript %}
+{% highlight javascript linenos %}
 authCtrl.login = function(provider){
   AuthFactory.login(provider);
 }
@@ -152,7 +150,7 @@ authCtrl.login = function(provider){
 
 Далее эта функция инициализирует библиотеку ```hello.js``` и вызывает метод ответственный за аутентификацию. Когда аутентификация завершится, вернем ```response``` обратно в контроллер:
 
-{% highlight JavaScript %}
+{% highlight javascript linenos %}
 function login(provider){
   init();
   hello(provider).login().then(function(response) {
@@ -164,10 +162,12 @@ function login(provider){
 
 В функции ```init``` указываем адрес прокси и адрес переадресации после аутентификации:
 
-{% highlight JavaScript %}
+{% highlight javascript linenos %}
 function init(){
   if(!isInited){
-    hello.init({twitter : 'twitter_client_id_here'},{
+    hello.init(
+    {twitter : 'twitter_client_id_here'},
+    {
       redirect_uri: '/redirect',
       oauth_proxy: '/proxy'
     });
@@ -179,7 +179,7 @@ function init(){
 
 Далее прокси получает запрос и обрабатывает его
 
-{% highlight JavaScript %}
+{% highlight javascript linenos %}
 app
 .get('/proxy', oauthshim.request)
 {% endhighlight %}
@@ -187,7 +187,7 @@ app
 
 Происходит ```handshake``` и мы получаем ```access_token```, после чего происходит редирект
 
-{% highlight JavaScript %}
+{% highlight javascript linenos %}
 .get('/redirect', function(req, res){
   res.sendFile('close.html', {root: app.get('views')});
 })
@@ -206,7 +206,7 @@ app
 
 Далее мы получаем ```response``` в методе ```link``` директивы, если получен ```access_token```, то переключаем переменную ```isAuthorized``` в ```true``` и узнаем имя пользователя, для отображения в шаблоне:
 
-{% highlight JavaScript %}
+{% highlight javascript linenos %}
 scope.$on('auth', function(event, response) {
   if(response.authResponse.access_token){
     scope.authCtrl.getUserDetails();
@@ -217,7 +217,7 @@ scope.$on('auth', function(event, response) {
 });
 {% endhighlight %}
 
-{% highlight JavaScript %}
+{% highlight javascript linenos %}
 vm.getUserDetails = function() {
   var authData = AuthFactory.getAuthResponse('twitter');
   if(authData){
@@ -237,14 +237,14 @@ vm.getUserDetails = function() {
 
 Пользователь заходит на страницу, в методе ```link``` мы проверяем есть ли данные о пользователе, если есть - получаем имя пользователя, переключаем переменную ```isAuthorized``` в ```true```. Поскольку ```isAuthorized === true``` в шаблоне будет отображена кнопка выхода, вместо кнопки аутентификации.
 
-{% highlight JavaScript %}
+{% highlight javascript linenos %}
 function link(scope, element, attrs) {
   scope.authCtrl.getUserDetails();
   ...
 }
 {% endhighlight %}
 
-{% highlight JavaScript %}
+{% highlight javascript linenos %}
 vm.getUserDetails = function() {
   var authData = AuthFactory.getAuthResponse('twitter');
   if(authData){
@@ -257,7 +257,7 @@ vm.getUserDetails = function() {
 
 Пользователь кликает на кнопку ```logout```, вызывается соответствующий метод контроллера директивы, который вызывает метод фабрики, ответственный за logout. ```hello.js``` удаляет данные о пользователе и мы переключаем переменную ```isAuthorized``` в ```false```:
 
-{% highlight JavaScript %}
+{% highlight javascript linenos %}
 vm.logout = function(provider) {
   AuthFactory.logout(provider);
   $scope.isAuthorized = false;

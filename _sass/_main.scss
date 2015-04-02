@@ -266,36 +266,22 @@ abbr {
 }
 
 pre, code {
-  font-family: Menlo, Monaco, "Courier New", monospace
+  font-family: Consolas,"Liberation Mono",Menlo,Courier,monospace;
 }
 
 code {
-  padding: 2px 4px;
+  padding: .2rem .5rem;
   font-size: 90%;
-  color: #c7254e;
   white-space: nowrap;
-  background-color: #f9f2f4;
-  border-radius: 0;
+  background: #FAF6E9;
+  border: 1px solid #F4EBD0;
+  @include rounded(4px);
 }
 
-pre {
-  padding: 1.125em;
-  font-size: 1.125rem;
-  line-height: 1.2;
-  overflow-x: scroll;
-  margin-bottom: 0.88em;
-
-  code {
-    color: #7a7a7a;
-    background-color: transparent;
-    white-space: pre;
-    border-radius: 0;
-  }
-}
-
-.highlight .p {
-  font-size: 1.125rem;
-  line-height: 1;
+pre>code{
+  display: block;
+  padding: 1rem 1.5rem;
+  white-space: pre;
 }
 
 blockquote {

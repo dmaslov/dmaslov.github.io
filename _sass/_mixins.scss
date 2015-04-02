@@ -2,8 +2,6 @@ $icon-color: #333;
 $icon-font-weight: 300;
 $icon-opacity: 0.8;
 
-$doc-font-size: 16;
-$doc-line-height: 26;
 $body-color: #e8e8e8;
 
 @mixin icon-link {
@@ -16,10 +14,4 @@ $body-color: #e8e8e8;
   -webkit-border-radius : $radius;
   -moz-border-radius : $radius;
   border-radius : $radius;
-}
-
-@mixin font($size) {
-  font-size: 0px + $size;
-  font-size: 0rem + $size / $doc-font-size;
-  line-height: 0 + round($doc-line-height / $size*10000) / 10000;
 }
